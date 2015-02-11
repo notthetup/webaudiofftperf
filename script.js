@@ -21,7 +21,7 @@ window.addEventListener('load', function (){
     var timeDuration = parseInt(timeDur.value);
     var fft = new FFT(fftSizeVal, 44100);
     console.log("running test", fftSizeVal, timeDuration);
-    runTest(audioContext, fftSizeVal, fft.forward, timeDuration, function(perf){
+    runTest(audioContext, fftSizeVal, fft.forward.bind(fft), timeDuration, function(perf){
       loadingSpinner.style.display = 'none'
       drawChart(massageData(perf), (fftSizeVal/44.100)*2);
       runButton.disabled = false;
@@ -88,7 +88,8 @@ function runTest(audioContext, fftSize, fftFunction, timeInmsec, oncomplete){
 
     window.perf.onFFTStart.push(performance.now());
 
-    // Do FFT HERE!!
+    //Do FFT Here
+    fftFunction(data);
 
     window.perf.onFFTEnd.push(performance.now());
 
