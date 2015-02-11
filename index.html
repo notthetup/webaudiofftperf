@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WebAudio FFT Performance</title>
+  <title>WebAudio FFT Performance</title>
 
-	<script src="fft-asm.js"></script>
-	<script src="dsp.js"></script>
-	<script src="script.js"></script>
+  <script type="text/javascript" src="fft-asm.js"></script>
+  <script type="text/javascript" src="dsp.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {packages:['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(function(){
+    window.chatLoaded = true;
+    Array.prototype.forEach.call(document.getElementsByClassName("perfControls"),function(thisEl){
+      thisEl.disabled = false;}
+    );
+    window.chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  });
+  </script>
 </head>
 <body>
-
-
+   FFTSize :
+   <select disabled class="perfControls" id="fftsize">
+     <option>256</option>
+     <option>512</option>
+     <option>1024</option>
+     <option>2048</option>
+     <option>4096</option>
+     <option>8192</option>
+     <option>16384</option>
+   </select>
+   Length (msec):
+   <input type="number" value="1000" class="perfControls" id="timeDuration">
+   <button disabled class="perfControls" id='runButton'> Run Test </button>
+   <br>
+   <div id="chart_div"></div>
 </body>
 </html>

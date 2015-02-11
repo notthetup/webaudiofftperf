@@ -77,8 +77,8 @@ function FftModuleAsm(stdlib, foreign, heap) {
     var tcnt=0;
     for(mh=1;(m=mh<<1)<=(sz|0);mh=m) {
       for(i=0;(i|0)<(mh|0);i=(i+1)|0) {
-        wr=+FLOAT64[(sz*16+tcnt)>>3];
-        wi=+FLOAT64[(sz*16+tcnt+8)>>3];
+        wr = +FLOAT64[(sz*16+tcnt)>>3];
+        wi = +FLOAT64[(sz*16+tcnt+8)>>3];
         tcnt=(tcnt+16)|0;
         for(j=i;(j|0)<(sz|0);j=(j+m)|0) {
           k=(j+mh)|0;
