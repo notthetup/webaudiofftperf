@@ -8,14 +8,21 @@ window.addEventListener('load', function (){
   var fftSize = document.getElementById('fftsize');
   var timeDur = document.getElementById('timeDuration');
 
+  var loadingSpinner = document.getElementById('loading');
+  var spinnerCheckbox = document.getElementById('spinnerCheckbox');
+
   runButton.addEventListener('click', function (){
     window.chart.clearChart();
+    if (spinnerCheckbox.checked){
+      loadingSpinner.style.display = '';
+    }
     runButton.disabled = true;
     var fftSizeVal = parseInt(fftSize.value);
     var timeDuration = parseInt(timeDur.value);
     var fft = new FFT(fftSizeVal, 44100);
     console.log("running test", fftSizeVal, timeDuration);
     runTest(audioContext, fftSizeVal, fft.forward, timeDuration, function(perf){
+      loadingSpinner.style.display = 'none'
       drawChart(massageData(perf), (fftSizeVal/44.100)*2);
       runButton.disabled = false;
     });

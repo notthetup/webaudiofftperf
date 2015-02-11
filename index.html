@@ -3,6 +3,8 @@
 <head>
   <title>WebAudio FFT Performance</title>
 
+  <link rel="stylesheet" href="style.css">
+
   <script type="text/javascript" src="fft-asm.js"></script>
   <script type="text/javascript" src="dsp.js"></script>
   <script type="text/javascript" src="script.js"></script>
@@ -23,20 +25,24 @@
   </script>
 </head>
 <body>
-   FFTSize :
-   <select disabled class="perfControls" id="fftsize">
-     <option>256</option>
-     <option>512</option>
-     <option>1024</option>
-     <option>2048</option>
-     <option>4096</option>
-     <option>8192</option>
-     <option>16384</option>
-   </select>
-   Length (msec):
-   <input type="number" value="1000" class="perfControls" id="timeDuration">
-   <button disabled class="perfControls" id='runButton'> Run Test </button>
+   <div>
+     FFTSize :
+     <select disabled class="perfControls" id="fftsize">
+       <option>256</option>
+       <option>512</option>
+       <option>1024</option>
+       <option>2048</option>
+       <option>4096</option>
+       <option>8192</option>
+       <option>16384</option>
+     </select>
+     Length (msec):
+     <input type="number" value="1000" class="perfControls" id="timeDuration">
+     <button disabled class="perfControls" id='runButton'> Run Test </button>
+     Spinner : <input checked="true" type="checkbox" id="spinnerCheckbox">
+   </div>
    <br>
+   <div class="loader" id="loading" style="display:none">Loading...</div>
    <div id="chart_div"></div>
 </body>
 </html>
