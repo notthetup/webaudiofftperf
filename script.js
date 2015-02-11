@@ -16,13 +16,13 @@ window.addEventListener('load', function (){
     var fft = new FFT(fftSizeVal, 44100);
     console.log("running test", fftSizeVal, timeDuration);
     runTest(audioContext, fftSizeVal, fft.forward, timeDuration, function(perf){
-      drawChart(massageData(perf));
+      drawChart(massageData(perf), (fftSizeVal/44.100)*2);
       runButton.disabled = false;
     });
   })
 })
 
-function drawChart(perfData) {
+function drawChart(perfData, vMax) {
 
   // Create the data table.
   var data = new google.visualization.DataTable();
@@ -36,7 +36,7 @@ function drawChart(perfData) {
     'width':1200,
     'height':400,
     'legend' : {'position' : "in"},
-    'vAxis' : {'viewWindow' : {'max' : 50}},
+    'vAxis' : {'viewWindow' : {'max' : vMax}},
     'explorer': {
       'maxZoomIn':1/10,
       'keepInBounds': true
