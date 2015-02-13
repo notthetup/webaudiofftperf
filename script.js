@@ -6,6 +6,7 @@ var audioContext = new AudioContext();
 window.addEventListener('load', function (){
   var runButton = document.getElementById('runButton');
   var fftSize = document.getElementById('fftsize');
+  var fftImpl = document.getElementById('fftimpl');
   var timeDur = document.getElementById('timeDuration');
 
   var loadingSpinner = document.getElementById('loading');
@@ -19,9 +20,27 @@ window.addEventListener('load', function (){
     runButton.disabled = true;
     var fftSizeVal = parseInt(fftSize.value);
     var timeDuration = parseInt(timeDur.value);
-    var fft = new FFT(fftSizeVal, 44100);
+
+    var fft;
+    if (fftimpl.value === "dsp.js"){
+      fft = new FFT(fftSizeVal, 44100);
+      fftFunc = fft.forward.bind(fft);
+    }else if(fftimpl.value === "jsfft"){
+      fft = new complex_array.ComplexArray(fftSizeVal);
+      fftFunc = function(buffer){
+        this.map(function(value, i, n) {
+          value.real = buffer[i];
+        });
+        this.FFT();
+      }.bind(fft);
+    }else{
+      fftFunc = function(){};
+    }
+
+
     console.log("running test", fftSizeVal, timeDuration);
-    runTest(audioContext, fftSizeVal, fft.forward.bind(fft), timeDuration, function(perf){
+
+    runTest(audioContext, fftSizeVal, fftFunc, timeDuration, function(perf){
       loadingSpinner.style.display = 'none'
       drawChart(massageData(perf), (fftSizeVal/44.100)*2);
       runButton.disabled = false;
