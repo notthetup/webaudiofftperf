@@ -21,8 +21,8 @@ The data collected is [DOMHighResolutionTimeStamp](https://developer.mozilla.org
 - at the end of callback of the `ScriptProcessorNode`: `onAudioProcessEnd`
 
 Using this data, the current graph plots : 
-- the time difference between successive `ScriptProcessorNode` callbacks :  `(onAudioProcessStart[index]-onAudioProcessEnd[index-1])`
-- the time taken for the FFT : `perf.onFFTEnd[index]-perf.onFFTStart[index]`
+- the time difference between successive `ScriptProcessorNode` callbacks :  `(onAudioProcessStart[index]-onAudioProcessEnd[index-1])` - labelled as `Callback (msec)`
+- the time taken for the FFT : `perf.onFFTEnd[index]-perf.onFFTStart[index]` - labelled as `FFTTime (msec)`
 
 ## License
 
