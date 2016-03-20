@@ -34,7 +34,22 @@ window.addEventListener('load', function (){
         this.FFT();
       }.bind(fft);
     }else{
-      fftFunc = function(){};
+      fft = new FftModule(fftSizeVal, true);
+      fftFunc = (function () {
+        var imag = new Float32Array(fftSizeVal);
+
+        return function (buffer){
+          if (typeof imag.fill === 'function') {
+            imag.fill(0);
+          } else {
+            Array.prototype.map.call(imag, function () {
+              return 0;
+            });
+          }
+
+          fft.fft(buffer, imag, false);
+        };
+      })();
     }
 
 
