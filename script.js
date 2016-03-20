@@ -33,7 +33,7 @@ window.addEventListener('load', function (){
         });
         this.FFT();
       }.bind(fft);
-    }else{
+    }else if(fftimpl.value === "fft-asm.js"){
       fft = new FftModule(fftSizeVal, true);
       fftFunc = (function () {
         var imag = new Float32Array(fftSizeVal);
@@ -50,6 +50,8 @@ window.addEventListener('load', function (){
           fft.fft(buffer, imag, false);
         };
       })();
+    }else{
+      fftFunc = function(){};
     }
 
 
